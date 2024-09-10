@@ -1,5 +1,4 @@
 const express = require("express");
-const { createUser, getUsers, updateUser } = require("../services/userService");
 const router = express.Router();
 const { v4: uuidv4 } = require("uuid"); // For generating unique user IDs
 const User = require("../models/User");
