@@ -16,20 +16,30 @@ router.post("/saveUser", async (req, res) => {
 });
 
 // Get all users
-router.get("/", (req, res) => {
-  const users = getUsers();
-  res.status(200).json(users);
+router.get("/", async (req, res) => {
+  try {
+    const users = await User.find();
+    res.status(200).json(users);
+  } catch (err) {
+    res.status(500).json({
+      error: "Failed to fetch Users",
+    });
+  }
 });
 
 // Update an existing user
-router.put("/:id", (req, res) => {
-  const { id } = req.params;
-  const updatedUser = req.body;
-  const user = updateUser(id, updatedUser);
-  if (user) {
-    res.status(200).json(user);
-  } else {
-    res.status(404).json({ message: "User not found" });
+router.put("/:id", async (req, res) => {
+  try {
+    const updatedUser = await User.findOneAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    if (updatedUser) {
+      res.status(200).json(updatedUser);
+    } else {
+      res.status(404).json({ error: "User not found" });
+    }
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update User" });
   }
 });
 
