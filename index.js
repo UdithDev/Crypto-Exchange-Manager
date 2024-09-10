@@ -1,11 +1,16 @@
 const express = require("express");
 const orderRoutes = require('./routes/orderRoutes');
 const userRoutes = require('./routes/userRoutes');
+const connectDB=require('./db')
+
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 
 //Middleware
 app.use(express.json()); //For parsing JSON bodies
+
+// Connect to MongoDB
+connectDB();
 
 // // Routes
 app.use("/api/orders",orderRoutes);
@@ -17,6 +22,6 @@ app.get("/", (req, res) => {
 });
 
 //Start the server
-app.listen(port, () => {
-  console.log(`server is running on http:localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`server is running on http:localhost:${PORT}`);
 });
