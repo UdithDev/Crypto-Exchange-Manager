@@ -1,16 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const { v4: uuidv4 } = require("uuid"); // For generating unique user IDs
 const User = require("../models/User");
 
 // Create a new user
 router.post("/saveUser", async (req, res) => {
   try {
     const newUser = new User(req.body);
-    const saveUser = await newUser.save();
-    res.status(201).json(saveUser);
+    const savedUser = await newUser.save();
+    res.status(201).json(savedUser);
   } catch (err) {
-    res.status(500).json({ error: "Failed to save user" });
+    res.status(500).json({ error: "Failed to createF user" });
   }
 });
 
@@ -29,7 +28,7 @@ router.get("/", async (req, res) => {
 // Update an existing user
 router.put("/:id", async (req, res) => {
   try {
-    const updatedUser = await User.findOneAndUpdate(req.params.id, req.body, {
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
     if (updatedUser) {
