@@ -1,0 +1,30 @@
+version: '3'
+services:
+  api:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
+    environment:
+      - MONGO_URI=mongodb+srv://Udith:1234@atlascluster.jyup7.mongodb.net/?retryWrites=true&w=majority&appName=AtlasCluster
+    volumes:
+      - .:/usr/src/app
+    command: node index.js
+    networks:
+      - app-network
+
+  mongo:
+    image: mongo:6.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - app-network
+
+volumes:
+  mongo-data:
+
+networks:
+  app-network:
