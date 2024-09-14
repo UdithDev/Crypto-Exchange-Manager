@@ -47,11 +47,16 @@ jobs:
           KUBECONFIG_CONTENT: ${{ secrets.KUBECONFIG }}
         run: echo "$KUBECONFIG_CONTENT" | base64 --decode > $HOME/.kube/config
 
-      - name: Deploy to Kubernetes
-        run: |
-          ls
-          kubectl apply -f deployment-blue.yaml
-          kubectl apply -f deployment-green.yaml
-          kubectl apply -f service.yaml
-          kubectl rollout status deployment/crypto-x-blue
-          kubectl rollout status deployment/crypto-x-green
+      - name: Print Current Directory
+        run: pwd  # This prints the current working directory
+
+      - name: List Files in Current Directory
+        run: ls -al  # This lists all files in the current directory
+
+      # - name: Deploy to Kubernetes
+      #   run: |
+      #     kubectl apply -f deployment-blue.yaml
+      #     kubectl apply -f deployment-green.yaml
+      #     kubectl apply -f service.yaml
+      #     kubectl rollout status deployment/crypto-x-blue
+      #     kubectl rollout status deployment/crypto-x-green
