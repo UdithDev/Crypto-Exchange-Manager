@@ -39,11 +39,13 @@ jobs:
         with:
           version: 'latest'
 
+      - name: Create .kube directory
+        run: mkdir -p $HOME/.kube
+
       - name: Configure kubectl
         env:
-          KUBECONFIG: ${{ secrets.KUBECONFIG }}
-        run: |
-          echo "$KUBECONFIG" > $HOME/.kube/config
+          KUBECONFIG_CONTENT: ${{ secrets.KUBECONFIG }}
+        run: echo "$KUBECONFIG_CONTENT" | base64 --decode > $HOME/.kube/config
 
       - name: Deploy to Kubernetes
         run: |
