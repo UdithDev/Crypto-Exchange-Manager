@@ -3,7 +3,7 @@ name: CI/CD Pipeline for Crypto-X
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
