@@ -37,7 +37,7 @@ jobs:
       - name: Set up Kubernetes CLI
         uses: azure/setup-kubectl@v3
         with:
-          version: 'latest'
+          version: "latest"
 
       - name: Create .kube directory
         run: mkdir -p $HOME/.kube
@@ -49,6 +49,7 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
+          cd k8s
           kubectl apply -f deployment-blue.yaml
           kubectl apply -f deployment-green.yaml
           kubectl apply -f service.yaml
