@@ -63,3 +63,6 @@ jobs:
           kubectl apply -f service.yaml
           kubectl rollout status deployment/crypto-x-blue
           kubectl rollout status deployment/crypto-x-green
+
+
+# Test
