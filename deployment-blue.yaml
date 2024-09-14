@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crypto-x-blue
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: crypto-x-blue
+  template:
+    metadata:
+      labels:
+        app: crypto-x-blue
+    spec:
+      containers:
+      - name: crypto-x
+        image: udithdev/crypto-x:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
